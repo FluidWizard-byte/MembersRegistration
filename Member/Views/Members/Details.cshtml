@@ -1,0 +1,149 @@
+﻿@model Member.Models.Members
+
+<div class="container" style="display:flex;flex-direction:row" >
+    <div class="left">
+        <div class="top">
+            <div>
+                <h1>Details for Member: @Model.fullName</h1>
+            </div>
+            <div>
+
+            </div>
+        </div>
+        <div class="bottom">
+            <div style="align-content:center">
+                @{
+
+                    string imagePath = "~/MemberImages/" + Model.image;
+                    if (imagePath != null)
+                    {
+                        <img style="border-radius: 50%;" src="@Url.Content(imagePath)" alt="member uploaded image" width="150px" align="right" />
+                    }
+
+                }
+            </div>
+        </div>
+    </div>
+    <div class="right"><dl class="dl-horizontal">
+    <dt>
+        @Html.DisplayNameFor(model => model.memberId)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.memberId)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.address)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.address)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.mobileNumber)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.mobileNumber)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.email)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.email)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.gender)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.gender)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.memberTypeId)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.memberTypeId)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.entryDate)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.entryDate)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.expiryDate)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.expiryDate)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.memberFee)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.memberFee)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.remarks)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.remarks)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.attachment)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.attachment)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.isActive)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.isActive)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.image)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.image)
+    </dd>
+
+</dl></div>
+    <h1></h1>
+    
+    <div style="position:absolute; margin-left:200px">
+        
+    </div>
+
+
+
+    <hr />
+
+</div>
+
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.memberId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Member.Models.MemberType>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.memberTypeId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.type)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.memberTypeId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.type)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.memberTypeId }) |
+            @Html.ActionLink("Details", "Details", new { id = item.memberTypeId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.memberTypeId })
+        </td>
+    </tr>
+}
+
+</table>

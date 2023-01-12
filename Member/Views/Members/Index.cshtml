@@ -1,0 +1,123 @@
+﻿@model IEnumerable<Member.Models.Members>
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+@using (Html.BeginForm("Index", "Members", FormMethod.Get))
+{
+    <div class="form-group">
+        <div class="col-md-10">
+            <p> Name: @Html.TextBox("SearchString") 
+                <input type="submit" value="Search" class="btn btn-default" id="a" />
+            <br />
+                
+        </div>
+    </div>
+}
+
+
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.memberId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.mobileNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.memberTypeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.entryDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.expiryDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.memberFee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.remarks)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.attachment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.isActive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.image)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.memberId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.fullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.mobileNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.memberTypeId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.entryDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.expiryDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.memberFee)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.remarks)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.attachment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.isActive)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.image)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.memberId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.memberId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.memberId })
+                </td>
+            </tr>
+        }
+
+    </table>
+
