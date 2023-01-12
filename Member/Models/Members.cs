@@ -43,14 +43,18 @@ namespace Member.Models
 
 
         [Display(Name = "Member Entry Date")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]
-        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+       
+
+        //[DataType(DataType.Date)]
         public DateTime entryDate { get; set; }
 
 
         [Display(Name = "Member Expiry Date")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]
-        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+
+
+        //[DataType(DataType.Date)]
         public DateTime expiryDate { get; set; }
 
 

@@ -60,6 +60,7 @@
                 </select>
             </div>
         </div>
+
         <div class="form-group">
             @Html.LabelFor(model => model.memberTypeId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -72,19 +73,20 @@
         <div class="form-group">
             @Html.LabelFor(model => model.entryDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-
-                @Html.TextBoxFor(model => model.entryDate, new { @type = "date", @class = "form-control datepicker", @Value = Model.entryDate.ToString("yyyy-MM-dd") })
-
-                @Html.ValidationMessageFor(model => model.entryDate, "", new { @class = "text-danger" })
+                <input type="text" name="entryDate" id="entryDate" class="form-control datetime" value="@Model.entryDate.ToString("dd/MM/yyyy")" />
+                @*@Html.EditorFor(model => model.entryDate, new { htmlAttributes = new { @type = "text", @class = "form-control datetime", @date_data_format = "dd/mm/yyyy", placeholder = "dd/mm/yyyy", @Value = Model.entryDate.ToString("dd/MM/yyyy") } })
+                @Html.ValidationMessageFor(model => model.entryDate, "", new { @class = "text-danger" })*@
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.expiryDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextBoxFor(model => model.expiryDate, new { @type = "date", @class = "form-control datepicker", @Value = Model.expiryDate.ToString("yyyy-MM-dd") })
+                <input type="text" name="expiryDate" id="expiryDate" class="form-control datetime" value="@Model.expiryDate.ToString("dd/MM/yyyy")" />
 
-                @Html.ValidationMessageFor(model => model.expiryDate, "", new { @class = "text-danger" })
+                @*@Html.EditorFor(model => model.expiryDate, new { htmlAttributes = new { @type = "text", @class = "form-control datetime", @date_data_format="dd/mm/yyyy", placeholder = "dd/mm/yyyy", @Value = Model.expiryDate.ToString("dd/MM/yyyy") } })*@
+                @*@Html.ValidationMessageFor(model => model.expiryDate, "", new { @class = "text-danger" })*@
+
             </div>
         </div>
 
@@ -152,5 +154,17 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.datetime').datepicker({
+                dateFormat: "dd/mm/yy",
+                changeMonth: true,
+                changeYear: true
+            });
+
+        });
+    </script>
 }

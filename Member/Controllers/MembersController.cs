@@ -51,7 +51,7 @@ namespace Member.Controllers
 
         // POST: Members/Create
         [HttpPost]
-        public ActionResult Create(Members member)
+        public ActionResult Create(Members member, FormCollection frm)
         {
             try
 
@@ -82,8 +82,10 @@ namespace Member.Controllers
                 {
                     member.attachment = null;
                 }
-              
-                if (ModelState.IsValid)
+                member.entryDate = GetDateFormatInYYYMMDD(frm["entryDate"].ToString());
+                member.expiryDate = GetDateFormatInYYYMMDD(frm["expiryDate"].ToString());
+
+                if (!ModelState.IsValid)
                 {
                     MemberDBHandle mdb = new MemberDBHandle();
                     if (mdb.AddMember(member))
@@ -93,8 +95,10 @@ namespace Member.Controllers
                         ModelState.Clear();
                     }
                 }
-               
+
                 return RedirectToAction("Create");
+
+
             }
             catch
             {
@@ -114,7 +118,7 @@ namespace Member.Controllers
 
         // POST: Members/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, Members member)
+        public ActionResult Edit(int id, Members member,FormCollection frm)
         {
             try
             {
@@ -166,8 +170,8 @@ namespace Member.Controllers
                         member.attachment = oldAttachmentFile;
                     }
                 }
-
-
+                member.entryDate = GetDateFormatInYYYMMDD(frm["entryDate"].ToString());
+                member.expiryDate = GetDateFormatInYYYMMDD(frm["expiryDate"].ToString());
                 // TODO: Add update logic here
                 MemberDBHandle mdb = new MemberDBHandle();
                 mdb.UpdateDetails(member);
@@ -177,6 +181,13 @@ namespace Member.Controllers
             {
                 return RedirectToAction("Index");
             }
+        }
+        public DateTime GetDateFormatInYYYMMDD(string date)
+        {
+            //dd//mm/yyyy
+            string[] _date = date.Split('/');
+            string d = _date[2] + "/" + _date[1] + "/" + _date[0];
+            return Convert.ToDateTime(d);
         }
 
         // GET: Members/Delete/5

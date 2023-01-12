@@ -1,0 +1,34 @@
+﻿@model Member.Models.Login
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <br />
+    @using (Html.BeginForm("Index", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        <fieldset>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })  
+            <div class="form-group">
+                @Html.LabelFor(model => model.email, new { @class = "col-lg-2 control-label" })
+                <div class="col-lg-10">
+                    @Html.TextBoxFor(model => model.email, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" }) 
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.password, new { @class = "col-lg-2 control-label" })
+                <div class="col-lg-10">
+                    @Html.PasswordFor(model => model.password, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-2">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+            </div>
+        </fieldset>
+    }
+</div> 
