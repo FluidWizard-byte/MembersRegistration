@@ -1,32 +1,43 @@
 ﻿@model IEnumerable<Member.Models.MemberType>
+@if (User.Identity.IsAuthenticated)
+{
+    @*<p>
+            @Html.ActionLink("Create New", "Create")
+        </p>*@
+    if (TempData["FailureMessage"] != null)
+    {
+        <script type="text/javascript">
+            window.onload = function () {
+                alert("@TempData["SuccessMessage"]");
+            };
+        </script>
+    }
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.memberTypeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.type)
+            </th>
+        </tr>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.memberTypeId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.type)
-        </th>
-    </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.memberTypeId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.type)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.memberTypeId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.memberTypeId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.memberTypeId })
+                </td>
+            </tr>
+        }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.memberTypeId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.type)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.memberTypeId }) |
-            @Html.ActionLink("Details", "Details", new { id = item.memberTypeId }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.memberTypeId })
-        </td>
-    </tr>
+    </table>
 }
-
-</table>

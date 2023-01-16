@@ -1,5 +1,6 @@
 ﻿using Member.Models;
 using Member.Service;
+using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,10 +17,10 @@ namespace Member.Controllers
         // GET: Account
         public ActionResult Index()
         {
-            if (HttpContext.User.Identity.IsAuthenticated) //check if authenticated user is available
+            /*if (HttpContext.User.Identity.IsAuthenticated) 
             {
-                return RedirectToAction("Index", "Home"); //if yes redirect to HomeController - means user is still log in
-            }
+                return RedirectToAction("Index", "Members");
+            }*/
 
             return View();
         }
@@ -37,7 +38,7 @@ namespace Member.Controllers
             if (result.resultCode == 200)
             {
                 FormsAuthentication.SetAuthCookie(model.email, false);
-                return RedirectToAction("Index", "Members", result.Data); //redirect to login form
+                return RedirectToAction("Create", "Members", result.Data); //redirect to login form
             }
             else
             {
@@ -66,6 +67,8 @@ namespace Member.Controllers
 
             if (result.resultCode == 200)
             {
+                TempData["SuccessMessage"] = "Registration successful";
+
                 return RedirectToAction("Index"); //redirect to login form
             }
             else

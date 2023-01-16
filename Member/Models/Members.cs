@@ -13,7 +13,7 @@ namespace Member.Models
     public class Members
     {
         [Key]
-        [Display(Name = "Member ID")]
+        [Display(Name = "ID")]
         public int memberId { get; set; }
 
         [Display(Name = "Member Full Name")]
@@ -39,7 +39,8 @@ namespace Member.Models
         [Required(ErrorMessage = "Member Type is required.")]
         [ForeignKey("MemberType")]
         public int memberTypeId { get; set; }
-       
+        
+        public virtual MemberType MemberType { get; set; }
 
 
         [Display(Name = "Member Entry Date")]

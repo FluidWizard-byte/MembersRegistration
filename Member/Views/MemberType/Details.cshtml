@@ -1,5 +1,6 @@
 ﻿@model Member.Models.MemberType
-
+@if (User.Identity.IsAuthenticated)
+    {
 <div>
     <h4>MemberType</h4>
     <hr />
@@ -16,5 +17,6 @@
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.memberTypeId }) |
-    @Html.ActionLink("Back to List", "Index")
+   @* @Html.ActionLink("Back to List", "Index")*@
 </p>
+}

@@ -16,20 +16,74 @@ namespace Member.Controllers
         // GET: Members
 
        
-        public ActionResult Index(string searchString)
+        public ActionResult Index(string option, string searchString, string searchStringG, string searchMT, string searchStringD)
         {
+            MemberTypeDBHandle mtdb = new MemberTypeDBHandle();
+            ViewBag.MemberType = mtdb.GetMemberTypes();
+            ViewBag._Option = option;
             MemberDBHandle dbhandle = new MemberDBHandle();
-            if (searchString==null || searchString=="")
+            if (option == "Name")
             {
-               
+                if (searchString == null || searchString=="")
+                {
+                    return View(dbhandle.GetMembers());
+                     }
+                else {
+                    return View(dbhandle.GetMembers().FindAll(member => member.fullName.ToLower() == searchString.ToLower()));
+
+                }
+            }
+
+            else if (option == "Address")
+            {
+                if (searchString != null)
+                {
+                    return View(dbhandle.GetMembers().FindAll(member => member.address.ToLower() == searchString.ToLower()));
+
+                }
+                else
+                {
+                    return View(dbhandle.GetMembers());
+                }
+            }
+            else if (option == "Gender") {
+                return View(dbhandle.GetMembers().FindAll(member => member.gender.ToLower().Trim() == searchStringG.ToLower()));
+            }
+            else if (option == "Member Type") {
+
+                return View(dbhandle.GetMembers().FindAll(member => member.memberTypeId == int.Parse(searchMT)));
+            }
+            else if (option == "Entry Date") {
+                if (searchStringD == null || searchStringD == "")
+                {
+                    return View(dbhandle.GetMembers());
+                         }
+                else {
+                    var ed = GetDateFormatInYYYMMDD(searchStringD);
+                    return View(dbhandle.GetMembers().FindAll(member => member.entryDate == ed));
+
+
+                }
+
+            }
+            else if (option == "Expiry Date") {
+                if (searchStringD == null || searchStringD == "")
+                {
+                    return View(dbhandle.GetMembers());
+                    }
+                else
+                {
+                    var exd = GetDateFormatInYYYMMDD(searchStringD);
+                    return View(dbhandle.GetMembers().FindAll(member => member.expiryDate == exd));
+
+                }
+            }
+            else
+            {
                 return View(dbhandle.GetMembers());
             }
-            else {
-               
-                return View(dbhandle.GetMembers().FindAll(member => member.fullName.ToLower() == searchString.ToLower()));
-            }
-            
-            
+
+
         }
        
 
@@ -53,6 +107,7 @@ namespace Member.Controllers
         [HttpPost]
         public ActionResult Create(Members member, FormCollection frm)
         {
+            
             try
 
             {
@@ -84,21 +139,25 @@ namespace Member.Controllers
                 }
                 member.entryDate = GetDateFormatInYYYMMDD(frm["entryDate"].ToString());
                 member.expiryDate = GetDateFormatInYYYMMDD(frm["expiryDate"].ToString());
-
-                if (!ModelState.IsValid)
+                if (User.Identity.IsAuthenticated)
                 {
-                    MemberDBHandle mdb = new MemberDBHandle();
-                    if (mdb.AddMember(member))
+                    if (!ModelState.IsValid)
                     {
-                        TempData["SuccessMessage"] = "Member "+member.fullName+" added successfully on "+DateTime.Now.ToString();
+                        MemberDBHandle mdb = new MemberDBHandle();
+                        if (mdb.AddMember(member))
+                        {
+                            TempData["SuccessMessage"] = "Member " + member.fullName + " added successfully on " + DateTime.Now.ToString();
 
-                        ModelState.Clear();
+                            ModelState.Clear();
+                        }
                     }
+
+                    return RedirectToAction("Create");
+
                 }
-
-                return RedirectToAction("Create");
-
-
+                else {
+                    return RedirectToAction("Index","Account");
+                }
             }
             catch
             {
@@ -151,7 +210,7 @@ namespace Member.Controllers
                 if (member.attachmentFile != null)
                 {
                     
-                    try { string oldattachmentPath = Path.Combine(Server.MapPath("~/MemberImages"), oldAttachmentFile); System.IO.File.Delete(oldattachmentPath); } catch { }
+                    try { string oldattachmentPath = Path.Combine(Server.MapPath("~/MemberAttachments"), oldAttachmentFile); System.IO.File.Delete(oldattachmentPath); } catch { }
                     string attachmentFileName = Path.GetFileNameWithoutExtension(member.attachmentFile.FileName);
                     string attachmentFileExtension = Path.GetExtension(member.attachmentFile.FileName);
                     attachmentFileName = DateTime.Now.ToString("yyyy-MM-dd-h-m-ff-tt") + "-" + attachmentFileName.Trim() + attachmentFileExtension;
@@ -172,11 +231,18 @@ namespace Member.Controllers
                 }
                 member.entryDate = GetDateFormatInYYYMMDD(frm["entryDate"].ToString());
                 member.expiryDate = GetDateFormatInYYYMMDD(frm["expiryDate"].ToString());
-                // TODO: Add update logic here
-                MemberDBHandle mdb = new MemberDBHandle();
-                mdb.UpdateDetails(member);
-                return RedirectToAction("Details", new { id=member.memberId });
-            }
+
+                if (User.Identity.IsAuthenticated)
+                {
+
+                    MemberDBHandle mdb = new MemberDBHandle();
+                    mdb.UpdateDetails(member);
+                    return RedirectToAction("Details", new { id = member.memberId });
+                }
+                else {
+                    return RedirectToAction("Index", "Account");
+                }
+                }
             catch
             {
                 return RedirectToAction("Index");
@@ -197,23 +263,25 @@ namespace Member.Controllers
             {
                 MemberDBHandle mdb = new MemberDBHandle();
                 Member.Models.Members m = mdb.GetMembers().Find(member => member.memberId == id);
-
-                if (m.image != null && m.image != "")
+                if (User.Identity.IsAuthenticated)
                 {
-                    string fullImagePath = Path.Combine(Server.MapPath("~/MemberImages"), m.image);
-                    System.IO.File.Delete(fullImagePath);
-                }
-                if (m.attachment != null && m.attachment!="") {
-                    string fullAttachmentPath = Path.Combine(Server.MapPath("~/MemberAttachments"), m.attachment);
-                    System.IO.File.Delete(fullAttachmentPath);
+                    if (m.image != null && m.image != "")
+                    {
+                        string fullImagePath = Path.Combine(Server.MapPath("~/MemberImages"), m.image);
+                        System.IO.File.Delete(fullImagePath);
+                    }
+                    if (m.attachment != null && m.attachment != "") {
+                        string fullAttachmentPath = Path.Combine(Server.MapPath("~/MemberAttachments"), m.attachment);
+                        System.IO.File.Delete(fullAttachmentPath);
 
-                }
+                    }
 
-                if (mdb.DeleteMember(id))
-                {
-                    ViewBag.AlertMsg = "Member Deleted Successfully";
-                }
-                return RedirectToAction("Index");
+                    if (mdb.DeleteMember(id))
+                    {
+                        ViewBag.AlertMsg = "Member Deleted Successfully";
+                    }
+                    return RedirectToAction("Index"); }
+                else { return RedirectToAction("Index", "Account"); }
             }
             catch
             {

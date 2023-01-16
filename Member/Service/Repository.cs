@@ -75,7 +75,7 @@ namespace Member.Service
                 using (SqlConnection conn = new SqlConnection(connectionstring))
                 {
                     SqlCommand cmd = new SqlCommand();
-                    cmd.CommandText = string.Format("Insert INTO MUser(Email,Password) VALUES('{0}','{1}')", user.email, md5_password);
+                    cmd.CommandText = string.Format("IF NOT EXISTS(SELECT * FROM MUser WHERE Email='{0}') Insert INTO MUser(Email,Password) VALUES('{0}','{1}')", user.email, md5_password);
                     cmd.Connection = conn;
 
                     conn.Open();
@@ -85,10 +85,11 @@ namespace Member.Service
                     {
                         response.message = "User has been registered!";
                         response.resultCode = 200;
+
                     }
                     else
                     {
-                        response.message = "Unable to register User!";
+                        response.message = "Unable to register User email may already be in use";
                         response.resultCode = 500;
                     }
 

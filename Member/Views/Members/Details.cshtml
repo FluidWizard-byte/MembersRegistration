@@ -1,6 +1,7 @@
 ﻿@model Member.Models.Members
-
-<div class="container" style="display:flex;flex-direction:row" >
+@if (User.Identity.IsAuthenticated)
+{
+<div class="container" style="display:flex;flex-direction:row">
     <div class="left">
         <div class="top">
             <div>
@@ -24,116 +25,118 @@
             </div>
         </div>
     </div>
-    <div class="right"><dl class="dl-horizontal">
-    <dt>
-        @Html.DisplayNameFor(model => model.memberId)
-    </dt>
+    <div class="right">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.memberId)
+            </dt>
 
-    <dd>
-        @Html.DisplayFor(model => model.memberId)
-    </dd>
+            <dd>
+                @Html.DisplayFor(model => model.memberId)
+            </dd>
 
-    <dt>
-        @Html.DisplayNameFor(model => model.address)
-    </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.address)
+            </dt>
 
-    <dd>
-        @Html.DisplayFor(model => model.address)
-    </dd>
+            <dd>
+                @Html.DisplayFor(model => model.address)
+            </dd>
 
-    <dt>
-        @Html.DisplayNameFor(model => model.mobileNumber)
-    </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.mobileNumber)
+            </dt>
 
-    <dd>
-        @Html.DisplayFor(model => model.mobileNumber)
-    </dd>
+            <dd>
+                @Html.DisplayFor(model => model.mobileNumber)
+            </dd>
 
-    <dt>
-        @Html.DisplayNameFor(model => model.email)
-    </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.email)
+            </dt>
 
-    <dd>
-        @Html.DisplayFor(model => model.email)
-    </dd>
+            <dd>
+                @Html.DisplayFor(model => model.email)
+            </dd>
 
-    <dt>
-        @Html.DisplayNameFor(model => model.gender)
-    </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.gender)
+            </dt>
 
-    <dd>
-        @Html.DisplayFor(model => model.gender)
-    </dd>
+            <dd>
+                @Html.DisplayFor(model => model.gender)
+            </dd>
 
-    <dt>
-        @Html.DisplayNameFor(model => model.memberTypeId)
-    </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.memberTypeId)
+            </dt>
 
-    <dd>
-        @Html.DisplayFor(model => model.memberTypeId)
-    </dd>
+            <dd>
+                @Html.DisplayFor(model => model.memberTypeId)
+            </dd>
 
-    <dt>
-        @Html.DisplayNameFor(model => model.entryDate)
-    </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.entryDate)
+            </dt>
 
-    <dd>
-        @Html.DisplayFor(model => model.entryDate)
-    </dd>
+            <dd>
+                @Html.DisplayFor(model => model.entryDate)
+            </dd>
 
-    <dt>
-        @Html.DisplayNameFor(model => model.expiryDate)
-    </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.expiryDate)
+            </dt>
 
-    <dd>
-        @Html.DisplayFor(model => model.expiryDate)
-    </dd>
+            <dd>
+                @Html.DisplayFor(model => model.expiryDate)
+            </dd>
 
-    <dt>
-        @Html.DisplayNameFor(model => model.memberFee)
-    </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.memberFee)
+            </dt>
 
-    <dd>
-        @Html.DisplayFor(model => model.memberFee)
-    </dd>
+            <dd>
+                @Html.DisplayFor(model => model.memberFee)
+            </dd>
 
-    <dt>
-        @Html.DisplayNameFor(model => model.remarks)
-    </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.remarks)
+            </dt>
 
-    <dd>
-        @Html.DisplayFor(model => model.remarks)
-    </dd>
+            <dd>
+                @Html.DisplayFor(model => model.remarks)
+            </dd>
 
-    <dt>
-        @Html.DisplayNameFor(model => model.attachment)
-    </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.attachment)
+            </dt>
 
-    <dd>
-        @Html.DisplayFor(model => model.attachment)
-    </dd>
+            <dd>
+                @Html.DisplayFor(model => model.attachment)
+            </dd>
 
-    <dt>
-        @Html.DisplayNameFor(model => model.isActive)
-    </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.isActive)
+            </dt>
 
-    <dd>
-        @Html.DisplayFor(model => model.isActive)
-    </dd>
+            <dd>
+                @Html.DisplayFor(model => model.isActive)
+            </dd>
 
-    <dt>
-        @Html.DisplayNameFor(model => model.image)
-    </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.image)
+            </dt>
 
-    <dd>
-        @Html.DisplayFor(model => model.image)
-    </dd>
+            <dd>
+                @Html.DisplayFor(model => model.image)
+            </dd>
 
-</dl></div>
+        </dl>
+    </div>
     <h1></h1>
-    
+
     <div style="position:absolute; margin-left:200px">
-        
+
     </div>
 
 
@@ -145,5 +148,6 @@
 
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.memberId }) |
-    @Html.ActionLink("Back to List", "Index")
+    @*@Html.ActionLink("Back to List", "Index")*@
 </p>
+                    }

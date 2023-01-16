@@ -22,9 +22,10 @@
                 @if (User.Identity.IsAuthenticated)
                 {
                     <ul class="nav navbar-nav">
-
-                        <li>@Html.ActionLink("MembersList", "Index", "Members")</li>
-                        <li>@Html.ActionLink("MemberTypeList", "Index", "MemberType")</li>
+                        <li>@Html.ActionLink("Add Member", "Create", "Members")</li>
+                        <li>@Html.ActionLink("View Members", "Index", "Members")</li>
+                        <li>@Html.ActionLink("Add Member Category", "Create", "MemberType")</li>
+                        <li>@Html.ActionLink("View Member Categories", "Index", "MemberType")</li>
 
                     </ul>
                     <ul class="nav navbar-nav pull-right">
@@ -35,6 +36,7 @@
                 else { 
                 <ul class="nav navbar-nav pull-right">
                 <li>@Html.ActionLink("Register", "Register", "Account")</li>
+                <li>@Html.ActionLink("Login", "Index", "Account")</li>
                      </ul>
                 }
             </div>
@@ -44,7 +46,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>Member Management</p>
         </footer>
     </div>
 

@@ -10,6 +10,7 @@ namespace Member.Models
     public class MemberType
     {
         [Key]
+        [Display(Name = "ID")]
         public int memberTypeId { get; set; }
 
         [Display(Name = "Member Type")]

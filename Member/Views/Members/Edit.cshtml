@@ -11,7 +11,8 @@
 @using (Html.BeginForm("Edit", "Members", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-
+    if (User.Identity.IsAuthenticated)
+    {
     <div class="form-horizontal">
         <h4>Members</h4>
         <hr />
@@ -75,7 +76,7 @@
             <div class="col-md-10">
                 <input type="text" name="entryDate" id="entryDate" class="form-control datetime" value="@Model.entryDate.ToString("dd/MM/yyyy")" />
                 @*@Html.EditorFor(model => model.entryDate, new { htmlAttributes = new { @type = "text", @class = "form-control datetime", @date_data_format = "dd/mm/yyyy", placeholder = "dd/mm/yyyy", @Value = Model.entryDate.ToString("dd/MM/yyyy") } })
-                @Html.ValidationMessageFor(model => model.entryDate, "", new { @class = "text-danger" })*@
+                    @Html.ValidationMessageFor(model => model.entryDate, "", new { @class = "text-danger" })*@
             </div>
         </div>
 
@@ -144,13 +145,16 @@
             </div>
         </div>
     </div>
+
+  @*  <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@
+    }
 }
 
 
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

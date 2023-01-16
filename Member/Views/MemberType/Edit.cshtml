@@ -4,7 +4,8 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+    if (User.Identity.IsAuthenticated)
+    {
     <div class="form-horizontal">
         <h4>MemberType</h4>
         <hr />
@@ -25,11 +26,12 @@
             </div>
         </div>
     </div>
+    @*<div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@
+    }
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

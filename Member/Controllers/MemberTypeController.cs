@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 
@@ -14,6 +15,7 @@ namespace Member.Controllers
         {
             MemberTypeDBHandle dbhandle = new MemberTypeDBHandle();
             ModelState.Clear();
+
             return View(dbhandle.GetMemberTypes());
         }
 
@@ -37,16 +39,22 @@ namespace Member.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
+                if (User.Identity.IsAuthenticated)
                 {
-                    MemberTypeDBHandle mtdb = new MemberTypeDBHandle();
-                    if (mtdb.AddMemberType(memberType))
+                    if (ModelState.IsValid)
                     {
-                        TempData["SuccessMessage"] = "MemberType "+memberType.type+ " Added Successfully";
-                        ModelState.Clear();
+                        MemberTypeDBHandle mtdb = new MemberTypeDBHandle();
+                        if (mtdb.AddMemberType(memberType))
+                        {
+                            TempData["SuccessMessage"] = "MemberType " + memberType.type + " Added Successfully";
+                            ModelState.Clear();
+                        }
                     }
+                    return View();
                 }
-                return View();
+                else {
+                    return RedirectToAction("Index", "Account");
+                }
             }
             catch
             {
@@ -68,9 +76,15 @@ namespace Member.Controllers
             try
             {
                 // TODO: Add update logic here
-                MemberTypeDBHandle mtdb = new MemberTypeDBHandle();
-                mtdb.UpdateDetails(memberType);
-                return RedirectToAction("Index");
+                if (User.Identity.IsAuthenticated)
+                {
+                    MemberTypeDBHandle mtdb = new MemberTypeDBHandle();
+                    mtdb.UpdateDetails(memberType);
+                    return RedirectToAction("Index");
+                }
+                else{
+                    return RedirectToAction("Index", "Account");
+                }
             }
             catch
             {
@@ -83,16 +97,23 @@ namespace Member.Controllers
         {
             try
             {
-                MemberTypeDBHandle mtdb = new MemberTypeDBHandle();
-                if (mtdb.DeleteMemberType(id))
+                if (User.Identity.IsAuthenticated)
                 {
-                    ViewBag.AlertMsg = "MemberType Deleted Successfully";
+                    MemberTypeDBHandle mtdb = new MemberTypeDBHandle();
+                    if (mtdb.DeleteMemberType(id))
+                    {
+                        ViewBag.AlertMsg = "MemberType Deleted Successfully";
+                    }
+                    return RedirectToAction("Index");
                 }
-                return RedirectToAction("Index");
+                else{
+                    return RedirectToAction("Index", "Account");
+                }
             }
             catch
             {
-                return View();
+               return Content(@"<script language='javascript' type='text/javascript'>if(confirm(""Could not delete, value is in use"")) document.location = 'https://localhost:44322/MemberType';;</script>");
+               //return RedirectToAction("Index","MemberType");
             }
         }
         

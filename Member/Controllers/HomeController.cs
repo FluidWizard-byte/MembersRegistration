@@ -10,7 +10,7 @@ namespace Member.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Create","Members");
         }
 
         public ActionResult About()
