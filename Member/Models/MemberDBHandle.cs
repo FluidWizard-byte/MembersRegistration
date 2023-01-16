@@ -121,6 +121,77 @@ namespace Member.Models
             }
             return memberList;
         }
+        //####################### LIST Members with member type ###################//
+        public List<Members> GetMembersWT()
+        {
+            connection();
+            List<Members> memberList = new List<Members>();
+
+            SqlCommand cmd = new SqlCommand("GetMemberDetailsWT", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter sd = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+
+            con.Open();
+            sd.Fill(dt);
+            con.Close();
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                int VmemberId = Convert.ToInt32(dr["Id"]);
+                string VfullName = Convert.ToString(dr["FullName"]);
+                string Vaddress = Convert.ToString(dr["Address"]);
+                string VmobileNumber;
+                try { VmobileNumber = Convert.ToString(dr["MobileNumber"]); } catch { VmobileNumber = ""; }
+                string Vemail;
+                try { Vemail = Convert.ToString(dr["Email"]); } catch { Vemail = ""; }
+
+                string Vgender = Convert.ToString(dr["Gender"]);
+                int VmemberTypeId = Convert.ToInt32(dr["MemberType"]);
+
+                string VmemberTypeValue= Convert.ToString(dr["type"]);
+
+                DateTime VentryDate = Convert.ToDateTime(dr["EntryDate"]);
+                DateTime VexpiryDate = Convert.ToDateTime(dr["ExpiryDate"]);
+
+                int VmemberFee;
+                try { VmemberFee = Convert.ToInt32(dr["MemberFee"]); } catch { VmemberFee = 0; }
+
+                string Vremarks;
+                try { Vremarks = Convert.ToString(dr["Remarks"]); } catch { Vremarks = ""; }
+
+                string Vattachment;
+                try { Vattachment = Convert.ToString(dr["Attachment"]); } catch { Vattachment = ""; }
+
+                Boolean VisActive = Convert.ToBoolean(dr["IsActive"]);
+
+                string Vimage;
+                try { Vimage = Convert.ToString(dr["Image"]); } catch { Vimage = ""; }
+
+                memberList.Add(
+                    new Members
+                    {
+                        memberId = VmemberId,
+                        fullName = VfullName,
+                        address = Vaddress,
+                        mobileNumber = VmobileNumber,
+                        email = Vemail,
+                        gender = Vgender,
+                        memberTypeId = VmemberTypeId,
+                        memberTypeValue = VmemberTypeValue,
+                        entryDate = VentryDate,
+                        expiryDate = VexpiryDate,
+                        memberFee = VmemberFee,
+                        remarks = Vremarks,
+                        attachment = Vattachment,
+                        isActive = VisActive,
+                        image = Vimage
+                    });
+            }
+            return memberList;
+        }
+
+
 
         //##################### Update Member #################//
         public bool UpdateDetails(Members member)

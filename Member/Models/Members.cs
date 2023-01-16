@@ -39,9 +39,11 @@ namespace Member.Models
         [Required(ErrorMessage = "Member Type is required.")]
         [ForeignKey("MemberType")]
         public int memberTypeId { get; set; }
-        
-        public virtual MemberType MemberType { get; set; }
 
+        [Display(Name = "Member Type Name")]
+        public string memberTypeValue { get; set; }
+        
+      
 
         [Display(Name = "Member Entry Date")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]

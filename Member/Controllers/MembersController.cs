@@ -26,10 +26,10 @@ namespace Member.Controllers
             {
                 if (searchString == null || searchString=="")
                 {
-                    return View(dbhandle.GetMembers());
+                    return View(dbhandle.GetMembersWT());
                      }
                 else {
-                    return View(dbhandle.GetMembers().FindAll(member => member.fullName.ToLower() == searchString.ToLower()));
+                    return View(dbhandle.GetMembersWT().FindAll(member => member.fullName.ToLower() == searchString.ToLower()));
 
                 }
             }
@@ -38,29 +38,29 @@ namespace Member.Controllers
             {
                 if (searchString != null)
                 {
-                    return View(dbhandle.GetMembers().FindAll(member => member.address.ToLower() == searchString.ToLower()));
+                    return View(dbhandle.GetMembersWT().FindAll(member => member.address.ToLower() == searchString.ToLower()));
 
                 }
                 else
                 {
-                    return View(dbhandle.GetMembers());
+                    return View(dbhandle.GetMembersWT());
                 }
             }
             else if (option == "Gender") {
-                return View(dbhandle.GetMembers().FindAll(member => member.gender.ToLower().Trim() == searchStringG.ToLower()));
+                return View(dbhandle.GetMembersWT().FindAll(member => member.gender.ToLower().Trim() == searchStringG.ToLower()));
             }
             else if (option == "Member Type") {
 
-                return View(dbhandle.GetMembers().FindAll(member => member.memberTypeId == int.Parse(searchMT)));
+                return View(dbhandle.GetMembersWT().FindAll(member => member.memberTypeId == int.Parse(searchMT)));
             }
             else if (option == "Entry Date") {
                 if (searchStringD == null || searchStringD == "")
                 {
-                    return View(dbhandle.GetMembers());
+                    return View(dbhandle.GetMembersWT());
                          }
                 else {
                     var ed = GetDateFormatInYYYMMDD(searchStringD);
-                    return View(dbhandle.GetMembers().FindAll(member => member.entryDate == ed));
+                    return View(dbhandle.GetMembersWT().FindAll(member => member.entryDate == ed));
 
 
                 }
@@ -69,18 +69,18 @@ namespace Member.Controllers
             else if (option == "Expiry Date") {
                 if (searchStringD == null || searchStringD == "")
                 {
-                    return View(dbhandle.GetMembers());
+                    return View(dbhandle.GetMembersWT());
                     }
                 else
                 {
                     var exd = GetDateFormatInYYYMMDD(searchStringD);
-                    return View(dbhandle.GetMembers().FindAll(member => member.expiryDate == exd));
+                    return View(dbhandle.GetMembersWT().FindAll(member => member.expiryDate == exd));
 
                 }
             }
             else
             {
-                return View(dbhandle.GetMembers());
+                return View(dbhandle.GetMembersWT());
             }
 
 
@@ -91,7 +91,7 @@ namespace Member.Controllers
         public ActionResult Details(int id)
         {
             MemberDBHandle mdb = new MemberDBHandle();
-            return View(mdb.GetMembers().Find(member => member.memberId == id));
+            return View(mdb.GetMembersWT().Find(member => member.memberId == id));
         }
 
         // GET: Members/Create
