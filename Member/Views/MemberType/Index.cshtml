@@ -1,43 +1,68 @@
 ﻿@model IEnumerable<Member.Models.MemberType>
-@if (User.Identity.IsAuthenticated)
+
+
+@using (Html.BeginForm("Index", "MemberType", FormMethod.Get))
 {
-    @*<p>
-            @Html.ActionLink("Create New", "Create")
-        </p>*@
-    if (TempData["FailureMessage"] != null)
+    if (User.Identity.IsAuthenticated)
     {
-        <script type="text/javascript">
+        @*<p>
+                @Html.ActionLink("Create New", "Create")
+            </p>*@
+        <div class="form-group">
+            <div class="col-md-10">
+                <p>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div>
+                                @Html.TextBox("searchString", null, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div>
+                                <input id="Search" type="submit" name="submit" value="Search" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+                </p>
+            </div>
+        </div>
+
+        if (TempData["FailureMessage"] != null)
+        {
+            <script type="text/javascript">
             window.onload = function () {
                 alert("@TempData["SuccessMessage"]");
             };
-        </script>
-    }
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.memberTypeId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.type)
-            </th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.memberTypeId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.type)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.memberTypeId }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.memberTypeId }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.memberTypeId })
-                </td>
-            </tr>
+            </script>
         }
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.memberTypeId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.type)
+                </th>
+            </tr>
 
-    </table>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.memberTypeId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.type)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.memberTypeId }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.memberTypeId }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.memberTypeId })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    }
 }
+

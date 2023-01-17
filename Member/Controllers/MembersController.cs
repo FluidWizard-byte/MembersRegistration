@@ -29,7 +29,7 @@ namespace Member.Controllers
                     return View(dbhandle.GetMembersWT());
                      }
                 else {
-                    return View(dbhandle.GetMembersWT().FindAll(member => member.fullName.ToLower() == searchString.ToLower()));
+                    return View(dbhandle.GetMembersWT().FindAll(member => member.fullName.ToLower().Contains(searchString.ToLower())));
 
                 }
             }
@@ -38,7 +38,7 @@ namespace Member.Controllers
             {
                 if (searchString != null)
                 {
-                    return View(dbhandle.GetMembersWT().FindAll(member => member.address.ToLower() == searchString.ToLower()));
+                    return View(dbhandle.GetMembersWT().FindAll(member => member.address.ToLower().Contains(searchString.ToLower())));
 
                 }
                 else

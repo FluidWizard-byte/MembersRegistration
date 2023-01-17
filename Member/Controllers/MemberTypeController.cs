@@ -11,12 +11,18 @@ namespace Member.Controllers
     public class MemberTypeController : Controller
     {
         // GET: MemberType
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
             MemberTypeDBHandle dbhandle = new MemberTypeDBHandle();
-            ModelState.Clear();
+            if (searchString == null || searchString.Length == 0)
+            {
+                return View(dbhandle.GetMemberTypes());
+            }
+            else {
+                return View(dbhandle.GetMemberTypes().FindAll(memberType=>memberType.type.ToLower().Contains(searchString.ToLower())));
+            }
 
-            return View(dbhandle.GetMemberTypes());
+            
         }
 
         // GET: MemberType/Details/5
