@@ -16,7 +16,7 @@ namespace Member.Models
         [Display(Name = "ID")]
         public int memberId { get; set; }
 
-        [Display(Name = "Member Full Name")]
+        [Display(Name = "Name")]
         [Required(ErrorMessage = "Member Name is required.")]
         public string fullName { get; set; }
 
@@ -24,7 +24,7 @@ namespace Member.Models
         [Required(ErrorMessage = "Address is required.")]
         public string address { get; set; }
 
-        [Display(Name = "Mobile No.")]
+        [Display(Name = "Contact")]
         
         public string mobileNumber { get; set; }
 
@@ -40,12 +40,12 @@ namespace Member.Models
         [ForeignKey("MemberType")]
         public int memberTypeId { get; set; }
 
-        [Display(Name = "Member Type Name")]
+        [Display(Name = "Type")]
         public string memberTypeValue { get; set; }
         
       
 
-        [Display(Name = "Member Entry Date")]
+        [Display(Name = "Entry")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
        
 
@@ -53,7 +53,7 @@ namespace Member.Models
         public DateTime entryDate { get; set; }
 
 
-        [Display(Name = "Member Expiry Date")]
+        [Display(Name = "Expiry")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
 
 
@@ -61,7 +61,7 @@ namespace Member.Models
         public DateTime expiryDate { get; set; }
 
 
-        [Display(Name = "Member Fee")]
+        [Display(Name = "Fee")]
         public int? memberFee { get; set; }
 
         [Display(Name = "Remarks")]

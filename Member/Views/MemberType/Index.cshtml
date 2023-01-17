@@ -6,7 +6,7 @@
     if (User.Identity.IsAuthenticated)
     {
         @*<p>
-                @Html.ActionLink("Create New", "Create")
+                    @Html.ActionLink("Create New", "Create")
             </p>*@
         <div class="form-group">
             <div class="col-md-10">
@@ -36,28 +36,42 @@
             </script>
         }
         <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.memberTypeId)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.type)
-                </th>
-            </tr>
+            <thead>
+                <tr>
+                    @* <th>
+                            @Html.DisplayNameFor(model => model.memberTypeId)
+                        </th>*@
+                    <th>
+                        @Html.DisplayNameFor(model => model.type)
+                    </th>
+                </tr>
+            </thead>
+
 
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.memberTypeId)
-                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.memberTypeId)
+                        </td>*@
                     <td>
                         @Html.DisplayFor(modelItem => item.type)
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.memberTypeId }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.memberTypeId }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.memberTypeId })
+                        <a href="@Url.Action("Edit", "MemberType", new { id = item.memberTypeId })">
+                            <img src="@Url.Content("~/Content/edit.png")" />
+                        </a>
+                        <a href="@Url.Action("Details", "MemberType", new { id = item.memberTypeId })">
+                            <img src="@Url.Content("~/Content/info.png")" />
+                        </a>
+
+                        <a id="delete" href="@Url.Action("Delete", "MemberType", new { id = item.memberTypeId })">
+                            <img src="@Url.Content("~/Content/delete.png")" />
+                        </a>
+
+
+
+
                     </td>
                 </tr>
             }
@@ -66,3 +80,15 @@
     }
 }
 
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+
+
+    <script>
+        $(document).on("click", "#delete", function () {
+            return confirm("Are you sure you want to delete?");
+        });
+    </script>
+}
