@@ -17,6 +17,7 @@ namespace Member.Models
         public int memberId { get; set; }
 
         [Display(Name = "Name")]
+        [RegularExpression(@"^[a-z A-Z]+$", ErrorMessage = "Only alphabet allowed")]
         [Required(ErrorMessage = "Member Name is required.")]
         public string fullName { get; set; }
 

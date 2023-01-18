@@ -137,6 +137,8 @@
     <Compile Include="Service\Repository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bgsp9.jpg" />
+    <Content Include="Content\bkg.jpeg" />
     <Content Include="Content\bootstrap-datepicker3.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />

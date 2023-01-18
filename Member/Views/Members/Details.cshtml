@@ -119,7 +119,10 @@
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.attachment)
+                 @Html.DisplayFor(model => model.attachment)
+                
+                 @*   <a href="@Url.Content("~/MemberAttachments/" + "Model.attachment")" target="_blank">@Model.attachment</a>
+                *@
             </dd>
 
             <dt>
