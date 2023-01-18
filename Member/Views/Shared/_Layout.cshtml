@@ -29,8 +29,8 @@
 
                     </ul>
                     <ul class="nav navbar-nav pull-right">
-                        <li>@Html.ActionLink("Logout", "Logout", "Account", new {style="color:red" })</li>
-                        <li>@Html.ActionLink(User.Identity.Name, "", "", new { style = "color:lime" })</li>
+                        <li>@Html.ActionLink("Logout", "Logout", "Account",null, new {style="color:red" })</li>
+                        <li>@Html.ActionLink(User.Identity.Name, "", "",null, new { style = "color:lime" })</li>
                     </ul>
                 }
                 else {
